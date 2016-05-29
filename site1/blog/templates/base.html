@@ -1,0 +1,102 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+	
+  <head>
+	  
+	<title>{% block title %} Base {% endblock title %}</title>
+	
+	{% block head_meta %}
+		{% block head_meta_charset %}
+			<meta charset="utf-8">
+		{% endblock head_meta_charset %}'
+		{% block head_meta_contentlanguage %}
+            <meta http-equiv="Content-Language" value="en-US" />
+        {% endblock head_meta_contentlanguage %}
+		{% block head_meta_viewport %}
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1.0">
+		{% endblock head_meta_viewport %}
+	{% endblock head_meta %}
+	
+	{% block head_css %}
+		{% block head_css_site %}
+			<!-- Latest compiled and minified CSS -->
+			<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+			<!-- site main css -->
+			<link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}" />
+			<!-- jQuery library -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+			<!-- Latest compiled JavaScript -->
+			<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{% endblock head_css_site %}
+		{% block head_css_section %}{% endblock head_css_section %}
+		{% block head_css_page %}{% endblock head_css_page %}
+		{% block head_css_custom %}
+			
+		{% endblock head_css_custom %}
+	{% endblock head_css %}
+	
+  </head>
+  <body>
+	  <header>
+        <div class="navbar navbar-inverse navbar-static-top 
+        {% block nav-style %}{% endblock %}">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="#">Blogger's blog</a>
+                    
+                </div>
+                <ul class="nav navbar-nav">
+					<li class="active"><a href="{% url 'blog:index' %}">Home</a></li>
+				</ul>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a href="">Logout</a></li>
+                            <li><a href=""
+                                   class="p-r-none">Accounts</a></li>
+                        {% else %}
+                            <li><a href="">Login</a></li>
+                            <li><a href="" class="p-r-none">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+	<div class="col-sm-2" id="left-section">
+		
+			<div class="row-sm-12" id="right-section">
+			{% block left-column-content %}{% endblock left-column-content %}
+			</div>
+		
+	</div>
+	
+	<div class="col-sm-7" id="middle-section">
+		
+		{% block middle-content %}{% endblock middle-content %}
+		
+	</div>
+	
+	<div class="col-sm-2" >
+		
+		<div class="row-sm-12" id="right-section">
+			{% block right-column-content %}{% endblock right-column-content%}
+		</div>
+		
+	</div>
+	<div class="footer">
+		{% block footer-content%}{% endblock footer-content%}
+	</div>
+  </body>
+</html>

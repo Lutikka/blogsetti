@@ -1,9 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{{ blogpost.title }}{% endblock title %}
+{% block nav-style %}navbar{% endblock nav-style %}
+
+{% block middle-content %}   
+
 {% if latest_blog_list %}
-    <ul>
+
     {% for blogpost in latest_blog_list %}
-        <li><a href="{% url 'blog:detail' blogpost.id %}">{{ blogpost.title }}</a></li>
+    
+    <a href="{% url 'blog:detail' blogpost.id %}">
+    <div class="container-fluid mybox">
+		<h2>{{ blogpost.title }}</h2>
+		</br>
+		
+		<!-- to enable html code in body_text -->
+		{% autoescape off %}
+			{{ blogpost.body_text }}
+		{% endautoescape %}
+		
+		<div class="row-sm-2">
+			
+			<div class= "col-sm-8"></div>
+					
+			<div class= "col-sm-4">
+				</br>
+				<p class="text-muted">published {{ blogpost.pub_date }}</p>
+				
+			</div>
+			
+		</div>
+	</div>
+	</a> 
     {% endfor %}
-    </ul>
 {% else %}
     <p>No blogs are available.</p>
 {% endif %}
+
+{% endblock middle-content %}
+

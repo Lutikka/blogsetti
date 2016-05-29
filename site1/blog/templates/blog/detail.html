@@ -1,36 +1,13 @@
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-	<title>{{ blogpost.title }}</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
-	
-	
-  </head>
-  <body>
-	  
-	<div class="col-sm-12">
-		
-		<div class="row-sm-2"></div>
-	
-	</div>
-	
-	<div class="col-sm-2">
-		<div class="row-sm-12"></div>
-	</div>
-	
-	<div class="col-sm-7">
-		
-		<h2>{{ blogpost.title }}</h2>
+{% extends 'base.html' %}
+
+{% block title %}{{ blogpost.title }}{% endblock title %}
+{% block nav-style %}navbar{% endblock nav-style %}
+
+{% block middle-content %}   
+
+    <h2>{{ blogpost.title }}</h2>
+    </br>
 		
 		<!-- to enable html code in body_text -->
 		{% autoescape off %}
@@ -42,15 +19,17 @@
 			<div class= "col-sm-8"></div>
 					
 			<div class= "col-sm-4">
-				
+				</br>
 				<p class="text-muted">published {{ blogpost.pub_date }}</p>
 				
 			</div>
 			
 		</div>
-		
-		
-			
+			<button data-toggle="collapse" data-target="#comment-collapse">
+				Comment
+			</button>
+			</br>
+			<div id="comment-collapse" class="collapse">
 			<form action="{% url 'blog:detail' blogpost.id %}" method="post">
 				{% csrf_token %}
 				{{ form.non_field_errors }}
@@ -58,7 +37,7 @@
 				<div class="fieldWrapper">
 					
 					{{ form.commentee.errors }}
-					<label for="{{ form.commentee.id_for_label }}">Name</label><br>
+					<label for="{{ form.commentee.id_for_label }}"></br>Name</label><br>
 					{{ form.commentee }}
 					
 				</div>
@@ -73,26 +52,19 @@
 				
 				<input type="submit" value="Submit" />
 			</form>
-			
+			</div>
 		
 		
 		<br />
 		{% for comment in blogpost.comment_set.all reversed %}
 				
-			<b>{{ comment.commentee }}</b> wrote: <br />
-			
-			{{ comment.comment_text}} <br />
-			
-			<p class="text-muted">{{ comment.pub_date}}</p>  <br />
-				
+			<div class="panel panel-default">
+				<div class="panel-heading"><b>{{ comment.commentee }}  wrote:</b></div>
+				<div class="panel-body">{{ comment.comment_text}}</div>
+				<br />
+				<div class="panel-footer fixed-panel"><p class="text-muted"><span style="float:right">{{ comment.pub_date}}</span></p></div> 
+			</div>
 		{% endfor %}
 		
-	</div>
-	
-	<div class="col-sm-2">
-		
-		<div class="row-sm-12"></div>
-		
-	</div>
-  </body>
-</html>
+
+{% endblock middle-content %}
