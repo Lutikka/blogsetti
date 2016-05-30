@@ -124,5 +124,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 #may need to be relational to static url
-STATIC_ROOT = os.path.join(BASE_DIR, '/static_root/')
-MEDIA_ROOT	= os.path.join(BASE_DIR, '/media_root/')
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+MEDIA_ROOT	= os.path.join(BASE_DIR, "media/")
