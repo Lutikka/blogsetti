@@ -16,9 +16,9 @@
 		</br>
 		
 		<!-- to enable html code in body_text -->
-		
+		{% autoescape off %}
 			{{ blogpost.body_text }}
-		
+		{% endautoescape %}
 		
 		<div class="row-sm-2">
 			
@@ -35,7 +35,7 @@
 	</a> 
     {% endfor %}
 {% else %}
-    <p>No blogs are available.</p>
+    <p>No blogs have been posted</p>
 {% endif %}
 
 {% endblock middle-content %}
