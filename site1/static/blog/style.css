@@ -1,0 +1,39 @@
+
+.fixed-panel{
+
+	min-height: 40px;
+    max-height: 40px;
+}
+
+#right-section,#left-section {
+
+
+}
+
+#middle-section{
+	 background: #f5f5dc;
+
+}
+
+.comment-panel{
+   max-width: 500px;
+   
+
+}
+
+body {
+
+}
+
+h2 {
+	color:dark-grey;
+}
+
+a {
+   color:inherit;
+}
+
+a:hover{
+   color:inherit;
+   font-weight: bold;
+}
