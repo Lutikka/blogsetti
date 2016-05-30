@@ -56,7 +56,7 @@
 		
 		
 		<br />
-		{% for comment in blogpost.comment_set.all reversed %}
+		{% for comment in ordered_comment_list %}
 				
 			<div class="panel panel-default comment-panel" >
 				<div class="panel-heading"><b>{{ comment.commentee }}  wrote:</b></div>

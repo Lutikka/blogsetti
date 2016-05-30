@@ -5,7 +5,7 @@ from django.template import loader
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from .models import Blogpost
+from .models import Blogpost, Comment
 from .forms import CommentForm
 
 
@@ -17,9 +17,11 @@ def index(request):
 	
 	return render(request, 'blog/index.html', context)
 	
-def detail(request, blogpost_id):
+def detail(request, blogpost_id): 
 	
 	blogpost = get_object_or_404(Blogpost, pk=blogpost_id)
+	
+	ordered_comment_list = Comment.objects.filter(blogpost__id=blogpost_id).order_by('-pub_date')
 	
 	if request.method == 'POST':
 		
@@ -34,7 +36,7 @@ def detail(request, blogpost_id):
 			#return to voting form with error message
 			
 			return render(request, 'blog/detail.html', {
-			'blogpost': blogpost,})
+			'blogpost': blogpost, 'ordered_comment_list': ordered_comment_list,})
 			
 		else:
 			
@@ -49,5 +51,5 @@ def detail(request, blogpost_id):
 			
 	else:
 		
-		return render(request, 'blog/detail.html', {'blogpost': blogpost, 'form': CommentForm()})
+		return render(request, 'blog/detail.html', {'blogpost': blogpost, 'form': CommentForm(), 'ordered_comment_list': ordered_comment_list,})
 	
