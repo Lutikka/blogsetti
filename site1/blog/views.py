@@ -20,7 +20,7 @@ def index(request):
 def detail(request, blogpost_id): 
 	
 	blogpost = get_object_or_404(Blogpost, pk=blogpost_id)
-	
+	#quick solution, probably not the best
 	ordered_comment_list = Comment.objects.filter(blogpost__id=blogpost_id).order_by('-pub_date')
 	
 	if request.method == 'POST':
