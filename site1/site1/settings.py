@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = secrets.SECRET_KEY_1
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # bug false = statics are missing like style.css etc.
+DEBUG = False # bug false = statics are missing like style.css etc.
 
 #should probably also include server external ip and domain.
-ALLOWED_HOSTS = ['localhost', '127.0.0.1'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','198.211.124.209',
 ]
 
 
