@@ -15,11 +15,12 @@ class Blogpost(models.Model):
 		
         return self.title
         
+    #for django admin - later
     def was_published_recently(self):
 		
         now = timezone.now()
         
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        return now - datetime.timedelta(days=2) <= self.pub_date <= now
 
 class Comment(models.Model):
     
@@ -36,9 +37,10 @@ class Comment(models.Model):
     def __str__(self):
 		
         return self.comment_text
-        
+    
+    #for django admin - later
     def was_published_recently(self):
 		
         now = timezone.now()
         
-        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        return now - datetime.timedelta(days=2) <= self.pub_date <= now

@@ -1,70 +1,115 @@
 
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block head_css_custom %}
+	<!-- index css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/detail.css' %}" />
+{% endblock head_css_custom %}
 
 {% block title %}{{ blogpost.title }}{% endblock title %}
-{% block nav-style %}navbar{% endblock nav-style %}
 
-{% block middle-content %}   
 
-    <h2>{{ blogpost.title }}</h2>
-    </br>
+{% block left_column_content %}
+{% endblock left_column_content %}
+{% block middle_content %}   
+	
+	<div class="row blogpost">
 		
-		<!-- to enable html code in body_text -->
-		{% autoescape off %}
-			{{ blogpost.body_text }}
-		{% endautoescape %}
-		
-		<div class="row-sm-2">
+		<div class = "col-sm-12">
 			
-			<div class= "col-sm-8"></div>
-					
-			<div class= "col-sm-4">
-				</br>
-				<p class="text-muted">published {{ blogpost.pub_date }}</p>
+			<h2>{{ blogpost.title }}</h2>
+			
+			<br>
 				
-			</div>
+			<!-- to enable html code in body_text -->
+			{% autoescape off %}
+			
+				{{ blogpost.body_text }}
+				
+			{% endautoescape %}
 			
 		</div>
-			<button data-toggle="collapse" data-target="#comment-collapse">
-				Comment
-			</button>
-			</br>
-			<div id="comment-collapse" class="collapse">
-			<form action="{% url 'blog:detail' blogpost.id %}" method="post">
-				{% csrf_token %}
-				{{ form.non_field_errors }}
+	
+	</div>
+	
+	<div class="row blogpost2">
+		
+		<div class= "col-sm-8"></div>
 				
-				<div class="fieldWrapper">
-					
-					{{ form.commentee.errors }}
-					<label for="{{ form.commentee.id_for_label }}"></br>Name</label><br>
-					{{ form.commentee }}
-					
-				</div>
+		<div class= "col-sm-4">
+			
+			<br>
+			
+			<p class="text-muted">published {{ blogpost.pub_date }}</p>
+			
+		</div>
+		
+	</div>
+			
+		
+	<div class="row blogpost">
+		<button data-toggle="collapse" data-target="#comment-collapse">
+			
+			Comment
+			
+		</button>
+		
+		<br>
+		
+		<div id="comment-collapse" class="collapse">
+			
+		<form action="{% url 'blog:detail' blogpost.id %}" method="post">
+			
+			{% csrf_token %}
+			
+			{{ form.non_field_errors }}
+			
+			<div class="fieldWrapper">
 				
-				<div class="fieldWrapper">
-					
-					{{ form.comment_text.errors }}
-					<label for="{{ form.comment_text.id_for_label }}">Comment</label><br>
-					{{ form.comment_text }}
-					
-				</div>
+				{{ form.commentee.errors }}
 				
-				<input type="submit" value="Submit" />
-			</form>
+				<label for="{{ form.commentee.id_for_label }}"><br>Name</label><br>
+				
+				{{ form.commentee }}
+				
 			</div>
+			
+			<div class="fieldWrapper">
+				
+				{{ form.comment_text.errors }}
+				
+				<label for="{{ form.comment_text.id_for_label }}">Comment</label><br>
+				
+				{{ form.comment_text }}
+				
+			</div>
+			
+			<input type="submit" value="Submit" />
+			
+		</form>
 		
+		</div>
+	</div>
+	<div class="row blogpost2">
+		<br>
 		
-		<br />
 		{% for comment in ordered_comment_list %}
 				
-			<div class="panel panel-default comment-panel" >
-				<div class="panel-heading"><b>{{ comment.commentee }}  wrote:</b></div>
-				<div class="panel-body">{{ comment.comment_text}}</div>
-				<br />
-				<div class="panel-footer fixed-panel"><p class="text-muted"><span style="float:right">{{ comment.pub_date}}</span></p></div> 
-			</div>
-		{% endfor %}
 		
+			<div class="panel panel-default comment-panel " >
+				
+				<div class="panel-heading"><b>{{ comment.commentee }}  wrote:</b></div>
+				
+				<div class="panel-body">{{ comment.comment_text}}</div>
+				
+				<br />
+				
+				<div class="panel-footer fixed-panel"><p class="text-muted"><span style="float:right">{{ comment.pub_date}}</span></p></div> 
+				
+			</div>
+			
+			
+		{% endfor %}
+	</div>
 
-{% endblock middle-content %}
+{% endblock middle_content %}
